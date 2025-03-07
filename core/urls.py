@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 from django.views.generic import RedirectView
 from .views import DoctorDetailView, ProcedureCreateView, ProcedureUpdateView
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('', RedirectView.as_view(pattern_name='family_list')),
@@ -47,4 +48,5 @@ urlpatterns = [
     path('prescriptions/<int:pk>/edit/', views.PrescriptionUpdateView.as_view(), name='prescription_edit'),
     path('prescriptions/<int:pk>/delete/', views.PrescriptionDeleteView.as_view(), name='prescription_delete'),
     path('medicalexpenses/add/<int:family_member_id>/', views.MedicalExpenseCreateView.as_view(), name='medicalexpense_add'),
+    path('logout/', LogoutView.as_view(), name='logout'),
 ]
