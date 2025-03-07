@@ -1,0 +1,13 @@
+{% extends 'base.html' %} {% block content %}
+<div class="card p-4">
+  <h1 class="mb-4">Medical Report</h1>
+  <div class="card bg-dark text-white p-3">
+    <pre>{{ report }}</pre>
+  </div>
+  <div class="mt-4">
+    <a href="{% url 'family_list' %}" class="btn btn-secondary"
+      >Back to Family</a
+    >
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,256 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container mt-4">
+  <div class="card p-4 shadow-lg" style="background-color: #2d2d2d">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="mb-0 text-light">{{ object.name }}</h1>
+      <a href="{% url 'family_edit' object.id %}" class="btn btn-outline-light">
+        <i class="fas fa-edit"></i> Edit
+      </a>
+    </div>
+    <div class="row mb-4">
+      <div class="col-md-4">
+        <div class="card bg-dark text-white p-3">
+          <h5 class="card-title text-light">Age</h5>
+          <p class="card-text text-light">{{ object.age }}</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-dark text-white p-3">
+          <h5 class="card-title text-light">Sex</h5>
+          <p class="card-text text-light">{{ object.get_sex_display }}</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-dark text-white p-3">
+          <h5 class="card-title text-light">Relationship</h5>
+          <p class="card-text text-light">
+            {{ object.get_relationship_display }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Procedures Section -->
+    <h2 class="mt-4 mb-3 text-light">Procedures</h2>
+    <a
+      href="{% url 'procedure_add' family_member_id=object.id %}"
+      class="btn btn-primary mb-4"
+    >
+      <i class="fas fa-plus"></i> Add Procedure
+    </a>
+    <div class="card shadow-sm" style="background-color: #2d2d2d">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-dark table-hover mb-0">
+            <thead>
+              <tr>
+                <th class="text-light">Name</th>
+                <th class="text-light">Date</th>
+                <th class="text-light">Description</th>
+                <th class="text-light">Doctor</th>
+                <th class="text-light">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for procedure in procedures %}
+              <tr>
+                <td class="text-light">{{ procedure.name }}</td>
+                <td class="text-light">{{ procedure.date }}</td>
+                <td class="text-light">{{ procedure.description }}</td>
+                <td class="text-light">{{ procedure.doctor.name }}</td>
+                <td>
+                  <a
+                    href="{% url 'procedure_edit' procedure.id %}"
+                    class="btn btn-sm btn-outline-warning"
+                  >
+                    <i class="fas fa-edit"></i>
+                  </a>
+                  <a
+                    href="{% url 'procedure_delete' procedure.id %}"
+                    class="btn btn-sm btn-outline-danger"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="5" class="text-center py-4 text-light">
+                  No procedures found.
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Medications Section -->
+    <h2 class="mt-4 mb-3 text-light">Medications</h2>
+    <a
+      href="{% url 'medication_add' family_member_id=object.id %}"
+      class="btn btn-primary mb-4"
+    >
+      <i class="fas fa-plus"></i> Add Medication
+    </a>
+    <div class="card shadow-sm" style="background-color: #2d2d2d">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-dark table-hover mb-0">
+            <thead>
+              <tr>
+                <th class="text-light">Name</th>
+                <th class="text-light">Dosage</th>
+                <th class="text-light">Frequency</th>
+                <th class="text-light">Start Date</th>
+                <th class="text-light">End Date</th>
+                <th class="text-light">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for medication in medications %}
+              <tr>
+                <td class="text-light">{{ medication.name }}</td>
+                <td class="text-light">{{ medication.dosage }}</td>
+                <td class="text-light">{{ medication.frequency }}</td>
+                <td class="text-light">{{ medication.start_date }}</td>
+                <td class="text-light">{{ medication.end_date }}</td>
+                <td>
+                  <a
+                    href="{% url 'medication_edit' medication.id %}"
+                    class="btn btn-sm btn-outline-warning"
+                  >
+                    <i class="fas fa-edit"></i>
+                  </a>
+                  <a
+                    href="{% url 'medication_delete' medication.id %}"
+                    class="btn btn-sm btn-outline-danger"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="6" class="text-center py-4 text-light">
+                  No medications found.
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lab Tests Section -->
+    <h2 class="mt-4 mb-3 text-light">Lab Tests</h2>
+    <a
+      href="{% url 'labtest_add' family_member_id=object.id %}"
+      class="btn btn-primary mb-4"
+    >
+      <i class="fas fa-plus"></i> Add Lab Test
+    </a>
+    <div class="card shadow-sm" style="background-color: #2d2d2d">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-dark table-hover mb-0">
+            <thead>
+              <tr>
+                <th class="text-light">Test Name</th>
+                <th class="text-light">Date</th>
+                <th class="text-light">Results</th>
+                <th class="text-light">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for labtest in labtests %}
+              <tr>
+                <td class="text-light">{{ labtest.test_name }}</td>
+                <td class="text-light">{{ labtest.date }}</td>
+                <td class="text-light">{{ labtest.results }}</td>
+                <td>
+                  <a
+                    href="{% url 'labtest_edit' labtest.id %}"
+                    class="btn btn-sm btn-outline-warning"
+                  >
+                    <i class="fas fa-edit"></i>
+                  </a>
+                  <a
+                    href="{% url 'labtest_delete' labtest.id %}"
+                    class="btn btn-sm btn-outline-danger"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="4" class="text-center py-4 text-light">
+                  No lab tests found.
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Medical Expenses Section -->
+    <h2 class="mt-4 mb-3 text-light">Medical Expenses</h2>
+    <a
+      href="{% url 'medicalexpense_add' family_member_id=object.id %}"
+      class="btn btn-primary mb-4"
+    >
+      <i class="fas fa-plus"></i> Add Medical Expense
+    </a>
+    <div class="card shadow-sm" style="background-color: #2d2d2d">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-dark table-hover mb-0">
+            <thead>
+              <tr>
+                <th class="text-light">Description</th>
+                <th class="text-light">Amount</th>
+                <th class="text-light">Date</th>
+                <th class="text-light">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for expense in medicalexpenses %}
+              <tr>
+                <td class="text-light">{{ expense.description }}</td>
+                <td class="text-light">{{ expense.amount }}</td>
+                <td class="text-light">{{ expense.date }}</td>
+                <td>
+                  <a
+                    href="{% url 'medicalexpense_edit' expense.id %}"
+                    class="btn btn-sm btn-outline-warning"
+                  >
+                    <i class="fas fa-edit"></i>
+                  </a>
+                  <a
+                    href="{% url 'medicalexpense_delete' expense.id %}"
+                    class="btn btn-sm btn-outline-danger"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="4" class="text-center py-4 text-light">
+                  No medical expenses found.
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

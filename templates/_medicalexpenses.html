@@ -1,0 +1,52 @@
+<h2 class="mt-4 mb-3 text-light">Medical Expenses</h2>
+<a
+  href="{% url 'medicalexpense_add' family_member_id=object.id %}"
+  class="btn btn-primary mb-4"
+>
+  <i class="fas fa-plus"></i> Add Medical Expense
+</a>
+<div class="card shadow-sm" style="background-color: #2d2d2d">
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-dark table-hover mb-0">
+        <thead>
+          <tr>
+            <th class="text-light">Description</th>
+            <th class="text-light">Amount</th>
+            <th class="text-light">Date</th>
+            <th class="text-light">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for expense in medicalexpenses %}
+          <tr>
+            <td class="text-light">{{ expense.description }}</td>
+            <td class="text-light">{{ expense.amount }}</td>
+            <td class="text-light">{{ expense.date }}</td>
+            <td>
+              <a
+                href="{% url 'medicalexpense_edit' expense.id %}"
+                class="btn btn-sm btn-outline-warning"
+              >
+                <i class="fas fa-edit"></i>
+              </a>
+              <a
+                href="{% url 'medicalexpense_delete' expense.id %}"
+                class="btn btn-sm btn-outline-danger"
+              >
+                <i class="fas fa-trash"></i>
+              </a>
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="4" class="text-center py-4 text-light">
+              No medical expenses found.
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

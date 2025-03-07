@@ -1,0 +1,37 @@
+<h2 class="mt-4 mb-3 text-light">Lab Tests</h2>
+<a
+  href="{% url 'labtest_add' family_member_id=object.id %}"
+  class="btn btn-primary mb-4"
+>
+  <i class="fas fa-plus"></i> Add Lab Test
+</a>
+<div class="card shadow-sm" style="background-color: #2d2d2d">
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-dark table-hover mb-0">
+        <thead>
+          <tr>
+            <th class="text-light">Test Name</th>
+            <th class="text-light">Date</th>
+            <th class="text-light">Results</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for labtest in labtests %}
+          <tr>
+            <td class="text-light">{{ labtest.name }}</td>
+            <td class="text-light">{{ labtest.date }}</td>
+            <td class="text-light">{{ labtest.results }}</td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="3" class="text-center py-4 text-light">
+              No lab tests found.
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
