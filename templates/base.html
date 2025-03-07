@@ -36,6 +36,8 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
+          {% if user.is_authenticated %}
+          <!-- Navbar for authenticated users -->
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
               <a class="nav-link" href="{% url 'family_list' %}">Family</a>
@@ -64,6 +66,17 @@
               </form>
             </li>
           </ul>
+          {% else %}
+          <!-- Navbar for non-authenticated users -->
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'register' %}">Register</a>
+            </li>
+          </ul>
+          {% endif %}
         </div>
       </div>
     </nav>
